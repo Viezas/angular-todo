@@ -1,0 +1,88 @@
+<div class="h-full flex items-center justify-center p-10 sm:p-20">
+  
+  <div class="illustration">
+      <img class="fit-picture" src="../assets/illustration.PNG" alt="Homme D'affaires Remplit Une Feuille De Papier Au Crayon" />
+  </div>
+
+
+    
+    
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="grid-cols-12-gap-4"
+    >
+      @if(firebaseErrorMessage) {
+      <p
+        class="col-span-full flex flex-row items-center justify-center font-bold text-xl text-red-600"
+      >
+        {{ firebaseErrorMessage }}
+      </p>
+      }
+      <div class="col-span-full flex flex-col gap-2">
+
+        <input
+          type="email"
+          formControlName="email"
+          class="border rounded-md p-1 outline-1 outline-blue-500"
+          placeholder="Adresse email"
+          autocomplete="email"
+          formControlName="email"
+          autofocus
+        />
+        @if(submitted) { @if (form.controls['email'].errors?.['required']) {
+        <p class="text-sm text-red-600">Adresse e-mail requise</p>
+        } @if (form.controls['email'].errors?.['email']) {
+        <p class="text-sm text-red-600">L'adresse e-mail doit être valide</p>
+        } }
+      </div>
+      <div class="col-span-full flex flex-col gap-2">
+
+        <input
+          type="password"
+          formControlName="password"
+          class="border rounded-md p-1 outline-1 outline-blue-500"
+          placeholder="Mot de passe"
+          autocomplete="password"
+          formControlName="password"
+        />
+        @if(submitted) { @if (form.controls['password'].errors?.['required']) {
+        <p class="text-sm text-red-600">Mot de passe requise</p>
+        } @if (form.controls['password'].errors?.['minlength']) {
+        <p class="text-sm text-red-600">
+          Le mot de passe est trop court. Un minimum de
+          {{form.controls['password'].errors?.['minlength'].requiredLength}}
+          caractères est requis.
+        </p>
+        } @if (form.controls['password'].errors?.['maxlength']) {
+        <p class="text-sm text-red-600">
+          Le mot de passe est trop long. Un maximum de
+          {{form.controls['password'].errors?.['maxlength'].requiredLength}}
+          caractères est requis.
+        </p>
+        } }
+      </div>
+      <div class="col-span-full flex flex-row items-center justify-center">
+        <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+          Connexion
+        </button>
+      </div>
+      <div
+        class="col-span-full flex flex-row items-center justify-center text-sm text-center"
+      >
+        <p>
+          Vous n'avez pas de compte ?
+          <a
+            routerLink="/register"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            class="underline text-blue-600"
+          >
+            Inscrivez-vous
+          </a>
+        </p>
+      </div>
+    </form>
+
+</div>
