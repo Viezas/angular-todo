@@ -1,0 +1,46 @@
+<div
+  class="h-full flex flex-col gap-10 items-center justify-center p-10 sm:p-20"
+>
+  <app-card class="w-full md:w-1/2">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="addTask()"
+      class="grid grid-cols-12 gap-2"
+    >
+      <h3 class="col-span-full text-center text-2xl font-bold">
+        Nouvelle tâche
+      </h3>
+      <div class="col-span-full">
+        <input
+          type="text"
+          formControlName="title"
+          class="border rounded-md p-1 outline-1 outline-blue-500 w-full"
+          placeholder="A faire"
+          autofocus
+        />
+        @if (submitted && form.controls['title'].errors?.['required']) {
+        <p class="text-sm text-red-600">Le titre de la tâche est obligatoire</p>
+        }
+      </div>
+      <div class="col-span-full">
+        <textarea
+          formControlName="description"
+          class="border rounded-md p-1 outline-1 outline-blue-500 w-full resize-none"
+          rows="3"
+          placeholder="Description"
+        ></textarea>
+      </div>
+      <div >
+        <button type="submit" class="col-span-full lg:col-span-2 py-1 rounded-md bg-emerald-500 text-white">
+          <i class="fa-solid fa-circle-plus fa-xl"></i> Ajouter
+        </button>
+        <button type="button" class="col-span-full lg:col-span-2 py-1 rounded-md bg-red-500 text-white">
+          Cancel
+        </button>
+      </div>
+
+    
+    </form>
+  </app-card>
+  
+</div>

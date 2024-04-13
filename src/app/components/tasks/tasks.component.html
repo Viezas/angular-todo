@@ -1,0 +1,55 @@
+<div class="h-full flex flex-col gap-10 items-center justify-center p-10 sm:p-20">
+
+    <app-card class="w-full md:w-1/2 mt-4">
+        <div class="grid grid-cols-12 gap-2 overflow-scroll">
+          <h3 class="col-span-full text-center text-2xl font-bold">Mes tâches</h3>
+          <ul class="col-span-full mt-4 flex flex-col gap-2">
+            <li
+              *ngFor="let task of tasks"
+              class="flex flex-row gap-2 justify-between items-center border-b py-1"
+            >
+              <div class="flex flex-row gap-1 w-full items-center justify-start">
+                <button (click)="toggleStatus(task)">
+                  <i
+                    class="text-emerald-500"
+                    [ngClass]="
+                      task.isDon
+                        ? 'fa-solid fa-circle-check'
+                        : 'fa-regular fa-circle'
+                    "
+                  ></i>
+                </button>
+                <span
+                  *ngIf="!task.is_editing"
+                  class="text-nowrap"
+                  [ngClass]="task.isDon ? 'line-through' : ''"
+                >
+                  {{ task.title }}
+                </span>
+                <input
+                  *ngIf="task.is_editing"
+                  type="text"
+                  class="border rounded-md p-1 outline-1 outline-blue-500 w-full"
+                  placeholder="A faire"
+                  autofocus
+                  [(ngModel)]="task.title"
+                />
+              </div>
+    
+              <div class="flex flex-row gap-2">
+                <button *ngIf="task.is_editing" (click)="updateTask(task)">
+                  <i class="text-emerald-500 fa-solid fa-floppy-disk"></i>
+                </button>
+                <button *ngIf="!task.is_editing" (click)="editTask(task)">
+                  <i class="text-amber-500 fa-solid fa-pen-to-square"></i>
+                </button>
+                <button (click)="deleteTask(task)">
+                  <i class="text-red-500 fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </app-card>
+    </div>
+  
