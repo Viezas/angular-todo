@@ -1,0 +1,11 @@
+<header class="p-4 flex flex-row">
+  Header
+  <div class="ml-auto flex flex-row gap-2">
+    @if(authService.currentUserSignal()) {
+    <button
+      (click)="logout()"
+      class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md">Déconnexion</button>
+    }
+
+  </div>
+</header>
