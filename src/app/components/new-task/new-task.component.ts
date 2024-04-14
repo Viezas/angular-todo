@@ -13,11 +13,16 @@ import { TaskService } from '../../service/task/task.service';
 import { AuthService } from '../../service/auth/auth.service';
 import { collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { TaskInterface } from '../../interface/task';
-
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 @Component({
   selector: 'app-new-task',
   standalone: true,
-  imports: [CardComponent, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CardComponent, CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './new-task.component.html',
   styleUrl: './new-task.component.css'
 })
@@ -25,7 +30,8 @@ export class NewTaskComponent {
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   submitted: boolean = false;
@@ -52,7 +58,8 @@ export class NewTaskComponent {
               const task = { ...doc.data(), id: doc.id, is_editing: false };
               this.tasks.push(task);
             });
-            this.tasks = this.tasks.sort((a: any, b: any) => a.isDon - b.isDon);
+            this.tasks = this.tasks.sort((a: any, b: any) => a.isDone - b.isDone);
+          
           }
         );
       }
@@ -67,6 +74,7 @@ export class NewTaskComponent {
       this.taskService.add(title, description);
       this.resetForm();
       this.submitted = false;
+      this.router.navigate(['']);
     }
   }
 

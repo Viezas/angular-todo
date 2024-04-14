@@ -9,6 +9,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
+
 import { TaskService } from '../../service/task/task.service';
 import { AuthService } from '../../service/auth/auth.service';
 import { collection, getDocs, onSnapshot } from '@angular/fire/firestore';
@@ -16,7 +24,7 @@ import { TaskInterface } from '../../interface/task';
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CardComponent, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CardComponent, CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
@@ -24,7 +32,8 @@ export class TasksComponent {
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   submitted: boolean = false;
