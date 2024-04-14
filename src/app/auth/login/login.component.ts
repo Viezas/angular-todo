@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
+import { CommonModule } from '@angular/common';
 import {
   Router,
   RouterLink,
@@ -26,6 +27,7 @@ import { AuthService } from '../../service/auth/auth.service';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
+    CommonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
