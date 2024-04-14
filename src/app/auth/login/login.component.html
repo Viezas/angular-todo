@@ -1,84 +1,100 @@
-<div class="h-full flex items-center justify-center p-10 sm:p-20">
-  <app-card class="w-full md:w-1/2">
-    <form
-      [formGroup]="form"
-      (ngSubmit)="submit()"
-      class="grid grid-cols-12 gap-4"
-    >
-      <h3 class="col-span-full text-center text-2xl font-bold">Connexion</h3>
-      @if(firebaseErrorMessage) {
-      <p
-        class="col-span-full flex flex-row items-center justify-center font-bold text-xl text-red-600"
-      >
-        {{ firebaseErrorMessage }}
-      </p>
-      }
-      <div class="col-span-full flex flex-col gap-2">
-        <label>Email:</label>
-        <input
-          type="email"
-          formControlName="email"
-          class="border rounded-md p-1 outline-1 outline-blue-500"
-          placeholder="Adresse email"
-          autocomplete="email"
-          formControlName="email"
-          autofocus
-        />
-        @if(submitted) { @if (form.controls['email'].errors?.['required']) {
-        <p class="text-sm text-red-600">Adresse e-mail requise</p>
-        } @if (form.controls['email'].errors?.['email']) {
-        <p class="text-sm text-red-600">L'adresse e-mail doit être valide</p>
-        } }
-      </div>
-      <div class="col-span-full flex flex-col gap-2">
-        <label>Mot de passe:</label>
-        <input
-          type="password"
-          formControlName="password"
-          class="border rounded-md p-1 outline-1 outline-blue-500"
-          placeholder="Mot de passe"
-          autocomplete="password"
-          formControlName="password"
-        />
-        @if(submitted) { @if (form.controls['password'].errors?.['required']) {
-        <p class="text-sm text-red-600">Mot de passe requise</p>
-        } @if (form.controls['password'].errors?.['minlength']) {
-        <p class="text-sm text-red-600">
-          Le mot de passe est trop court. Un minimum de
-          {{form.controls['password'].errors?.['minlength'].requiredLength}}
-          caractères est requis.
-        </p>
-        } @if (form.controls['password'].errors?.['maxlength']) {
-        <p class="text-sm text-red-600">
-          Le mot de passe est trop long. Un maximum de
-          {{form.controls['password'].errors?.['maxlength'].requiredLength}}
-          caractères est requis.
-        </p>
-        } }
-      </div>
-      <div class="col-span-full flex flex-row items-center justify-center">
-        <button
-          type="submit"
-          class="w-full md:w-1/3 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
-        >
-          Connexion
-        </button>
-      </div>
-      <div
-        class="col-span-full flex flex-row items-center justify-center text-sm text-center"
-      >
-        <p>
-          Vous n'avez pas de compte ?
-          <a
-            routerLink="/register"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-            class="underline text-blue-600"
+<div class="h-full flex items-center justify-center sm:p-20">
+  <div class="w-full md:w-3/4 gap-x-24 flex flex-col md:flex-row justify-center items-center">
+    <!-- Image container -->
+    <div class="w-1/2 md:w-3/4 h-full">
+      <!-- Adjust the image path and styles as needed -->
+      <img src="../assets/illustration.png" alt="Image" class="w-full h-full object-cover">
+    </div>
+    <!-- Form container -->
+    <app-card class="w-1/2 md:w-3/4">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-12 gap-4">
+        <h3 class="col-span-full text-center text-2xl font-bold">Connexion</h3>
+        
+        <!-- Error message for Firebase -->
+        <ng-container *ngIf="firebaseErrorMessage">
+          <p class="col-span-full flex flex-row items-center justify-center font-bold text-xl text-red-600">
+            {{ firebaseErrorMessage }}
+          </p>
+        </ng-container>
+        
+        <div class="col-span-full flex flex-col gap-2">
+          <label>Email:</label>
+          <input
+            type="email"
+            formControlName="email"
+            class="border rounded-md p-1 focus:outline-none focus:ring ring-teal-400 ring-opacity-50 focus:border-teal-500"
+            placeholder="Adresse email"
+            autocomplete="email"
+            formControlName="email"
+            autofocus
+          />
+          <!-- Error messages for email field -->
+          <ng-container *ngIf="submitted">
+            <ng-container *ngIf="form.controls['email'].errors?.['required']">
+              <p class="text-sm text-red-600">Adresse e-mail requise</p>
+            </ng-container>
+            <ng-container *ngIf="form.controls['email'].errors?.['email']">
+              <p class="text-sm text-red-600">L'adresse e-mail doit être valide</p>
+            </ng-container>
+          </ng-container>
+        </div>
+        
+        <div class="col-span-full flex flex-col gap-2">
+          <label>Mot de passe:</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="border rounded-md p-1 focus:outline-none focus:ring ring-teal-400 ring-opacity-50 focus:border-teal-500"
+            placeholder="Mot de passe"
+            autocomplete="password"
+            formControlName="password"
+          />
+          <!-- Error messages for password field -->
+          <ng-container *ngIf="submitted">
+            <ng-container *ngIf="form.controls['password'].errors?.['required']">
+              <p class="text-sm text-red-600">Mot de passe requis</p>
+            </ng-container>
+            <ng-container *ngIf="form.controls['password'].errors?.['minlength']">
+              <p class="text-sm text-red-600">
+                Le mot de passe est trop court. Un minimum de
+                {{form.controls['password'].errors?.['minlength'].requiredLength}}
+                caractères est requis.
+              </p>
+            </ng-container>
+            <ng-container *ngIf="form.controls['password'].errors?.['maxlength']">
+              <p class="text-sm text-red-600">
+                Le mot de passe est trop long. Un maximum de
+                {{form.controls['password'].errors?.['maxlength'].requiredLength}}
+                caractères est requis.
+              </p>
+            </ng-container>
+          </ng-container>
+        </div>
+        
+        <div class="col-span-full flex flex-row items-center justify-center">
+          <button
+            type="submit"
+            class="w-full md:w-1/3 p-2 bg-teal-500 hover:bg-teal-600 text-white rounded-md"
           >
-            Inscrivez-vous
-          </a>
-        </p>
-      </div>
-    </form>
-  </app-card>
+            Connexion
+          </button>
+        </div>
+        
+        <div class="col-span-full flex flex-row items-center justify-center text-sm text-center">
+          <p>
+            Vous n'avez pas de compte ?
+            <a
+              routerLink="/register"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+              class="underline text-teal-600"
+            >
+              Inscrivez-vous
+            </a>
+          </p>
+        </div>
+        
+      </form>
+    </app-card>
+  </div>
 </div>

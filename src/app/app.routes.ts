@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { NewTaskComponent } from './components/new-task/new-task.component';
 import {
   canActivate,
   redirectLoggedInTo,
@@ -20,5 +22,15 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     ...canActivate(redirectLoggedInToHome),
+  },
+  {
+    path: '',
+    component: TasksComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'new-tasks',
+    component: NewTaskComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   },
 ];
